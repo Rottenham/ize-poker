@@ -1,4 +1,4 @@
-// 初始化
+﻿// 初始化
 var font_kaiti = new FontFace("楷体", "url(kaiti.ttf)");
 font_kaiti.load().then(function (font_k) {
   document.fonts.add(font_k);
@@ -14,6 +14,8 @@ cvs.height = 744;
 setDPI(cvs, 300);
 var ctx = cvs.getContext("2d");
 
+// 提交表单
+// mockup -- 是否使用预设阵图，作为预览
 function submitForm(mockup) {
   let author = getAuthors();
   if (!author) {
@@ -48,6 +50,7 @@ function submitForm(mockup) {
   };
 }
 
+// 获得作者字符串
 function getAuthors() {
   let authors_input = document.getElementsByName("author");
   let authors = new Array();
@@ -78,12 +81,13 @@ function getAuthors() {
   let ans = "";
   while (authors.length > 0) {
     auth_list = "";
-    let min_year = years[0];
+    let min_year = parseInt(years[0]);
     for (let i = 1; i < years.length; i++) {
-      if (years[i] < min_year) {
+      if (parseInt(years[i]) < min_year) {
         min_year = years[i];
       }
     }
+    min_year = String(min_year);
     for (let i = 0; i < years.length; ) {
       if (years[i] === min_year) {
         if (auth_list.length > 0) {
@@ -104,6 +108,7 @@ function getAuthors() {
   return ans;
 }
 
+// 获得珍珑名
 function getName() {
   let name = document.getElementById("name").value;
   if (!name) {
@@ -113,26 +118,25 @@ function getName() {
   return name;
 }
 
+// 获得点数
 function getPokerNum() {
   let e = document.getElementById("poker_num");
   return e.options[e.selectedIndex].text;
 }
 
+// 获得花色
 function getPokerSuit() {
   let e = document.getElementById("poker_suit");
   return e.value;
 }
 
+// 获得角标
 function getPokerMark() {
   let e = document.getElementById("poker_mark");
   return e.options[e.selectedIndex].text;
 }
 
-function getDropdown(id) {
-  let e = document.getElementById(id);
-  return e.options[e.selectedIndex].text;
-}
-
+// 获得阵图
 function getImage() {
   let file = document.getElementById("file");
   if (file.files.length === 0) {
@@ -299,6 +303,7 @@ function setDPI(canvas, dpi) {
   ctx.scale(scaleFactor, scaleFactor);
 }
 
+// 如果点数为大/小王，禁用花色
 function handleNum() {
   let e = document.getElementById("poker_suit");
   e.disabled = getPokerNum() === "小王" || getPokerNum() === "大王";
@@ -333,6 +338,13 @@ function delete_one() {
   document.getElementById("author_item_" + size).remove();
 }
 
+// 清空作者输入栏与珍珑名
 function delete_until_one() {
-    
+  let size = document.getElementsByName("author").length;
+  for (let i = 2; i <= size; i++) {
+    document.getElementById("author_item_" + i).remove();
+  }
+  document.getElementsByName("author")[0].value = "";
+  document.getElementsByName("year")[0].value = "";
+  document.getElementById("name").value = "";
 }

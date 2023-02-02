@@ -1,4 +1,4 @@
-#myCanvas {
+﻿#myCanvas {
   margin: 14px auto 0px auto;
   display: block;
 }
@@ -45,4 +45,8 @@ h1 {
   font-size: 80%;
   text-align: center;
   color: gray;
+}
+
+body {
+  font-family: sans-serif;
 }
