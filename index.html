@@ -3,6 +3,7 @@
   <head>
     <title>IZE扑克生成器🃏</title>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
   </head>
   <body>
     <h1>IZE扑克生成器🃏</h1>
@@ -21,7 +22,7 @@
     <div id="main">
       <div id="column_1">
         <form id="form" action="">
-          <p>珍珑名 <input type="text" id="name" value="擒贼擒王" /></p>
+          <p>珍珑名 <input type="text" id="name" value="珍珑名" /></p>
           <p>
             珍珑作者（ID、年份）
             <input
@@ -45,25 +46,25 @@
           </p>
           <div id="authors">
             <li id="author_item_1">
-              <input
-                type="text"
-                name="author"
-                value="某不知名の提拉米苏"
-              /><input type="number" name="year" value="2022" />
+              <input type="text" name="author" value="甲" /><input
+                type="number"
+                name="year"
+                value="2020"
+              />
             </li>
             <li id="author_item_2">
-              <input type="text" name="author" value="The_Moon_丶" /><input
+              <input type="text" name="author" value="乙" /><input
+                type="number"
+                name="year"
+                value="2020"
+              />
+            </li>
+            <li id="author_item_3">
+              <input type="text" name="author" value="丙" /><input
                 type="number"
                 name="year"
                 value="2022"
               />
-            </li>
-            <li id="author_item_3">
-              <input
-                type="text"
-                name="author"
-                value="86-不存在的瑜悦悦-"
-              /><input type="number" name="year" value="2022" />
             </li>
             <div id="anchor"></div>
           </div>
@@ -110,7 +111,12 @@
             </select>
           </p>
           <p id="submit">
-            <input type="button" value="生成扑克" onclick="submitForm(false)" />
+            <input
+              type="button"
+              id="submit-btn"
+              value="生成扑克"
+              onclick="submitForm(false)"
+            />
           </p>
         </form>
       </div>

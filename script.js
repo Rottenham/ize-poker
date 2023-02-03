@@ -29,25 +29,24 @@ function submitForm(mockup) {
   let suit = getPokerSuit();
   let mark_type = getPokerMark();
   if (mockup) {
-    var puzzle_img = new Image();
-    puzzle_img.src = "images/mock_puzzle.png";
+    generatePoker(puzzle_img, author, name, num, suit, mark_type, true);
   } else {
     var puzzle_img = getImage();
     if (!puzzle_img) {
       return;
     }
+    puzzle_img.onload = function (e) {
+      if (this.width !== 800) {
+        alert("阵图宽度应为800px");
+        return;
+      }
+      if (this.height !== 600) {
+        alert("阵图高度应为600px");
+        return;
+      }
+      generatePoker(puzzle_img, author, name, num, suit, mark_type, false);
+    };
   }
-  puzzle_img.onload = function (e) {
-    if (this.width !== 800) {
-      alert("阵图宽度应为800px");
-      return;
-    }
-    if (this.height !== 600) {
-      alert("阵图高度应为600px");
-      return;
-    }
-    generatePoker(puzzle_img, author, name, num, suit, mark_type);
-  };
 }
 
 // 获得作者字符串
@@ -149,7 +148,7 @@ function getImage() {
 }
 
 // 绘制
-function generatePoker(puzzle_img, author, name, num, suit, mark_type) {
+function generatePoker(puzzle_img, author, name, num, suit, mark_type, mockup) {
   ctx.clearRect(0, 0, cvs.width, cvs.height);
   drawWhiteBackground(ctx);
   drawAuthor(ctx, author);
@@ -158,7 +157,13 @@ function generatePoker(puzzle_img, author, name, num, suit, mark_type) {
   night_img.src = "images/night.png";
   night_img.onload = function (e) {
     ctx.drawImage(night_img, 78, 72);
-    ctx.drawImage(puzzle_img, 138, 72);
+    if (mockup) {
+      ctx.fillStyle = "#5253b0";
+      ctx.fillRect(138, 72, 800, 600);
+      ctx.fillStyle = "black";
+    } else {
+      ctx.drawImage(puzzle_img, 138, 72);
+    }
     frame_img = new Image();
     frame_img.src = "images/frame.png";
     frame_img.onload = function (e) {
