@@ -1,4 +1,7 @@
 ﻿// 初始化
+let submit_btn = document.getElementById("submit-btn");
+submit_btn.disabled = true;
+submit_btn.value = "加载中...";
 var font_kaiti = new FontFace("楷体", "url(kaiti.ttf)");
 font_kaiti.load().then(function (font_k) {
   document.fonts.add(font_k);
@@ -6,13 +9,15 @@ font_kaiti.load().then(function (font_k) {
   font_poker.load().then(function (font_p) {
     document.fonts.add(font_p);
     submitForm(true);
+    let submit_btn = document.getElementById("submit-btn");
+    submit_btn.disabled = false;
+    submit_btn.value = "生成扑克";
   });
 });
 var cvs = document.getElementById("myCanvas");
-cvs.width = 1075;
-cvs.height = 744;
-setDPI(cvs, 300);
+setDPI(cvs, 300, 1087, 720);
 var ctx = cvs.getContext("2d");
+ctx.textBaseline = "top";
 
 // 提交表单
 // mockup -- 是否使用预设阵图，作为预览
@@ -156,13 +161,13 @@ function generatePoker(puzzle_img, author, name, num, suit, mark_type, mockup) {
   night_img = new Image();
   night_img.src = "images/night.png";
   night_img.onload = function (e) {
-    ctx.drawImage(night_img, 78, 72);
+    ctx.drawImage(night_img, 109, 108, 871, 506);
     if (mockup) {
       ctx.fillStyle = "#5253b0";
-      ctx.fillRect(138, 72, 800, 600);
+      ctx.fillRect(222, 108, 675, 506);
       ctx.fillStyle = "black";
     } else {
-      ctx.drawImage(puzzle_img, 138, 72);
+      ctx.drawImage(puzzle_img, 222, 108, 675, 506);
     }
     frame_img = new Image();
     frame_img.src = "images/frame.png";
@@ -222,14 +227,14 @@ function drawWhiteBackground(ctx) {
 function drawAuthor(ctx, author) {
   ctx.textAlign = "left";
   ctx.font = "25px 楷体";
-  ctx.fillText(author, 77, 50);
+  ctx.fillText(author, 103, 72);
 }
 
 // 绘制珍珑名
 function drawName(ctx, name) {
   ctx.textAlign = "right";
   ctx.font = "29.17px 楷体";
-  ctx.fillText(name, 998, 707);
+  ctx.fillText(name, 984, 632);
   ctx.textAlign = "left";
 }
 
@@ -246,12 +251,12 @@ function getSuitImage(suit) {
 // 绘制花色
 function drawSuit(ctx, suit_img) {
   ctx.save();
-  ctx.translate(972, 20);
+  ctx.translate(936, 60);
   ctx.rotate(Math.PI / 2);
   ctx.drawImage(suit_img, 0, 0);
   ctx.restore();
   ctx.save();
-  ctx.translate(103, 724);
+  ctx.translate(151, 660);
   ctx.rotate(-Math.PI / 2);
   ctx.drawImage(suit_img, 0, 0);
   ctx.restore();
@@ -272,7 +277,7 @@ function drawMark(ctx, mark_type) {
     mark_img.src = "images/te_mark.png";
   }
   mark_img.onload = function (e) {
-    ctx.drawImage(mark_img, 1010, 650);
+    ctx.drawImage(mark_img, 1027 - mark_img.width, 660 - mark_img.height);
   };
 }
 
@@ -280,26 +285,28 @@ function drawMark(ctx, mark_type) {
 function drawNumber(ctx, num, suit) {
   ctx.save();
   ctx.fillStyle = isRed(suit) ? "#fc0303" : "#000000";
-  ctx.translate(987, 16);
+  ctx.translate(1027, 60);
   ctx.rotate(Math.PI / 2);
   ctx.textAlign = "left";
-  ctx.font = "80px Poker";
+  ctx.font = "75px Poker";
   ctx.fillText(num, 0, 0);
   ctx.restore();
   ctx.save();
   ctx.fillStyle = isRed(suit) ? "#fc0303" : "#000000";
-  ctx.translate(89, 728);
+  ctx.translate(60, 660);
   ctx.rotate(-Math.PI / 2);
   ctx.textAlign = "left";
-  ctx.font = "80px Poker";
+  ctx.font = "75px Poker";
   ctx.fillText(num, 0, 0);
   ctx.restore();
 }
 
 // 设置分辨率
-function setDPI(canvas, dpi) {
-  canvas.style.width = "537px";
-  canvas.style.height = "372px";
+function setDPI(canvas, dpi, width, height) {
+  canvas.width = width;
+  canvas.height = height;
+  canvas.style.width = width / 2 + "px";
+  canvas.style.height = height / 2 + "px";
   // Resize canvas and scale future draws.
   var scaleFactor = dpi / 72;
   canvas.width = Math.ceil(canvas.width * scaleFactor);

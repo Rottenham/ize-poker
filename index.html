@@ -5,6 +5,20 @@
     <link rel="stylesheet" href="styles.css" />
     <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
   </head>
+  <!-- Google tag (gtag.js) -->
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=G-K7JZ6NCXTS"
+  ></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "G-K7JZ6NCXTS");
+  </script>
   <body>
     <h1>IZE扑克生成器🃏</h1>
     <div id="made_by">
@@ -130,8 +144,10 @@
           Your browser does not support the HTML5 canvas tag.</canvas
         >
         <script type="text/javascript" src="script.js"></script>
-        <p id="instruction">
-          右键保存图片<br />打印尺寸：300dpi，60mm*88mm，出血位3mm
+        <p class="instruction">右键保存图片</p>
+        <p class="instruction">
+          打印尺寸：300dpi，设计尺寸61*92mm，实际尺寸57*88mm（桥牌大小）
+          <br />出血位2mm，出血线内部3.5mm无文字
         </p>
       </div>
     </div>
